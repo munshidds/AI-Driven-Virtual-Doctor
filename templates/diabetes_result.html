@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>diabetes_result</title>
+</head>
+<body>
+    <h3>{{name}} : hear is your result</h3>
+    <br>
+    <h3>{{ result }}</h3>
+
+    <br>
+    <br>
+    <br>
+    <form action="/submit_review" method="post">
+        <label for="user-review">Enter your review based on your experience:</label><br>
+        <textarea id="user-review" name="user-review" rows="4" cols="50" placeholder="Enter your review here"></textarea><br>
+        <input type="submit" value="Submit Review">
+    </form>
+    
+
+</body>
+</html>

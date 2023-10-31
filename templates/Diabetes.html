@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes</title>
+</head>
+<body>
+    <h1>hai {{name}} , i am Dr majeed, </h1>
+    <form action='http://127.0.0.1:5000/Diabetes_resutl' method="POST">
+    {% if gender == "Female" %}
+    <label for="Pregnancies">Have you ever been pregnant? If yes, how many times?,</label>
+    <input type="number" name="Pregnancies" placeholder="Pregnancies" value=0 >
+    {% endif %}
+    <br>
+    <label for="Glucose">what is your blood sugar level?</label>
+    <input type="number" name="Glucose" placeholder="Glucose" value=0>
+    <br>
+    <label for="BloodPressure">what is your bloodPressure sugar level?</label>
+    <input type="number" name="BloodPressure" placeholder="BloodPressure" value=0 >
+    <br>
+    <label for="SkinThickness">SkinThickness?</label>
+    <input type="number" name="SkinThickness" placeholder="SkinThickness" value=0>
+    <br>
+    <h4> Have you undergone any tests related to insulin levels? What were the findings or results?</h4>
+    <label for="Insulin">Insulin</label>
+    <input type="number" name="Insulin" placeholder="Insulin" value=0>
+    <br>
+    <label for="BMI">BMI</label>
+    <input type="number" name="BMI" placeholder="BMI" value=0>
+    <br>
+    <label for="DiabetesPedigreeFunction">DiabetesPedigreeFunction</label>
+    <input type="number" name="DiabetesPedigreeFunction" placeholder="DiabetesPedigreeFunction" value=0>
+    <br>
+
+    
+    <input type="submit" value="Predict" >
+
+    <h1>{{ab}}</h1>
+</form>
+</body>
+</html>
