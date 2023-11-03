@@ -4,35 +4,34 @@
     <title>Virtual Doctor Chat</title>
 
 </head>
-<body >   
+<body  style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f5f5f5;">   
 
-    <h1>Welcome to the Virtual Doctor Chat</h1>
-    <form action="http://127.0.0.1:5000/predict" method="POST">
-        <label for="user-name">Doctor: I'm Dr. John. I hope I can assist you today. Before that, could you please tell me your name?</label>
-        <input type="text" name="user-name" placeholder="Your Name">
+    <h1 style="text-align: center; color: #333;">Welcome to the Virtual Doctor Chat</h1>
+    <form action="http://127.0.0.1:5000/predict" method="POST" style="background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); margin-top: 20px;">
+        <label for="user-name"  style="color: #333; display: block; margin-bottom: 10px;">Doctor: I'm Dr. John. I hope I can assist you today. Before that, could you please tell me your name?</label>
+        <input type="text" name="user-name" placeholder="Your Name" required>
         <br>
-        <label for="gender">Doctor: What is your gender?</label>
-        <input type="radio" name="gender" value="Male"> Male
+        <label for="gender"  style="color: #333; display: block; margin-bottom: 10px;">Doctor: What is your gender?</label>
+        <input type="radio" name="gender" value="Male" required> Male
         <input type="radio" name="gender" value="Female"> Female
-        <input type="radio" name="gender" value="Other"> Other
         <br>
-        <label for="user-age">Doctor: How old are you?</label>
-        <input type="number" name="user-age" placeholder="Your Age">
+        <label for="user-age"  style="color: #333; display: block; margin-bottom: 10px;">Doctor: How old are you?</label>
+        <input type="number" name="user-age" placeholder="Your Age" required>
         <br>
-        <label for="user-phone_number">Doctor: Your phone number?</label>
+        <label for="user-phone_number"  style="color: #333; display: block; margin-bottom: 10px;">Doctor: Your phone number?</label>
         <input type="text" pattern="\d{10}" title="Please enter a 10-digit number" name="user-phone_number" placeholder="Your phone number (10 digits)" required>
         
         <br>
 
-        <!-- Question inputs -->
+   
         {% for i in range(1, 49) %}
-        <label for="q{{ i }}" >Doctor: {{ questions[i-1] }}</label>
+        <label for="q{{ i }}"  style="color: #333; display: block; margin-bottom: 10px;" >Dr: {{ questions[i-1] }}</label>
         <input type="radio" name="q{{ i }}" value="1" > Yes
-        <input type="radio" name="q{{ i }}" value="0" checked> No
+        <input type="radio" name="q{{ i }}" value="0" checked  style="margin-right: 5px; display: none;">
         <br>
         {% endfor %}
 
-        <input type="submit" value="Predict" >
+        <input type="submit" value="Predict" style="background-color: #4caf50; color: #fff; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;" >
     </form>
 </body>
 </html>

@@ -3,40 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diabetes</title>
+    <title>Diabetes Predictor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            max-width: 400px;
+            margin: 20px auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        input[type="number"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <h1>hai {{name}} , i am Dr majeed, </h1>
+    <h1>Hello, {{name}}! I'm Dr. Majeed.</h1>
     <form action='http://127.0.0.1:5000/Diabetes_resutl' method="POST">
-    {% if gender == "Female" %}
-    <label for="Pregnancies">Have you ever been pregnant? If yes, how many times?,</label>
-    <input type="number" name="Pregnancies" placeholder="Pregnancies" value=0 >
-    {% endif %}
-    <br>
-    <label for="Glucose">what is your blood sugar level?</label>
-    <input type="number" name="Glucose" placeholder="Glucose" value=0>
-    <br>
-    <label for="BloodPressure">what is your bloodPressure sugar level?</label>
-    <input type="number" name="BloodPressure" placeholder="BloodPressure" value=0 >
-    <br>
-    <label for="SkinThickness">SkinThickness?</label>
-    <input type="number" name="SkinThickness" placeholder="SkinThickness" value=0>
-    <br>
-    <h4> Have you undergone any tests related to insulin levels? What were the findings or results?</h4>
-    <label for="Insulin">Insulin</label>
-    <input type="number" name="Insulin" placeholder="Insulin" value=0>
-    <br>
-    <label for="BMI">BMI</label>
-    <input type="number" name="BMI" placeholder="BMI" value=0>
-    <br>
-    <label for="DiabetesPedigreeFunction">DiabetesPedigreeFunction</label>
-    <input type="number" name="DiabetesPedigreeFunction" placeholder="DiabetesPedigreeFunction" value=0>
-    <br>
+        {% if gender == "Female" %}
+        <label for="Pregnancies">Have you ever been pregnant? If yes, how many times?</label>
+        <input type="number" name="Pregnancies" placeholder="Pregnancies" value="0">
+        {% endif %}
+        <br>
+        <label for="Glucose">What is your blood sugar level?</label>
+        <input type="number" name="Glucose" placeholder="Glucose" value="0">
+        <br>
+        <label for="BloodPressure">What is your blood pressure?</label>
+        <input type="number" name="BloodPressure" placeholder="Blood Pressure" value="0">
+        <br>
+        <label for="SkinThickness">Skin Thickness</label>
+        <input type="number" name="SkinThickness" placeholder="Skin Thickness" value="0">
+        <br>
+        <h4>Have you undergone any tests related to insulin levels? What were the findings or results?</h4>
+        <label for="Insulin">Insulin</label>
+        <input type="number" name="Insulin" placeholder="Insulin" value="0">
+        <br>
+        <label for="BMI">BMI</label>
+        <input type="number" name="BMI" placeholder="BMI" value="0">
+        <br>
+        <label for="DiabetesPedigreeFunction">Diabetes Pedigree Function</label>
+        <input type="number" name="DiabetesPedigreeFunction" placeholder="Diabetes Pedigree Function" value="0">
+        <br>
 
-    
-    <input type="submit" value="Predict" >
-
-    <h1>{{ab}}</h1>
-</form>
+        <input type="submit" value="Predict">
+    </form>
 </body>
 </html>

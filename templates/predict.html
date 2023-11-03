@@ -3,23 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>prediction</title>
+    <title>Prediction</title>
     <style>
-        table,th,td{
-            border: 1px solid black;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 20px;
         }
 
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #333;
+            text-align: left;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #333;
+            color: white;
+        }
+
+        h3 {
+            color: #333;
+            text-align: center;
+        }
+
+        h4 {
+            color: #666;
+            text-align: center;
+        }
+
+        a {
+            display: block;
+            width: fit-content;
+            margin: 0 auto 10px;
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            padding: 8px 12px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #ccc;
+        }
     </style>
 </head>
 <body>
-    <h1>registration details</h1>
+    <h1>Registration Details</h1>
 
     <table>
         <tr>
             <th>Name</th>
             <th>Gender</th>
             <th>Age</th>
-            <th>user_phone_nomber</th>
+            <th>User Phone Number</th>
         </tr>
         <tr>
             <td>{{Name}}</td>
@@ -28,39 +79,15 @@
             <td>{{user_phone_nomber}}</td>
         </tr>
     </table>
-    
-    <h3> Hello, {{Name}}! Based on your responses, the prediction for your condition is:{{predicted}} </h3>
-    <h4 >"Please consult a {{predicted}} specialist for further evaluation of your condition."</h4>
-    <br>
-    <br>
 
-    <h4 >"Based on your symptoms, here is a list of specialized doctors that may assist you further:"</h4>
+    <h3>Hello, {{Name}}! Based on your responses, the prediction for your condition is: {{predicted}}</h3>
+    <h4>"Please consult a {{predicted}} specialist for further evaluation of your condition."</h4>
 
+    <h4>"Based on your symptoms, here is a list of specialized doctors that may assist you further:"</h4>
 
-    <a href='/Diabetes' style="text-decoration: none; color: #333; font-size: 18px; font-family: Arial, sans-serif; padding: 8px 12px; background-color: #f0f0f0; border-radius: 5px;">Diabetes - 'Dr majeed'</a>
+    <a href='/Diabetes'>Diabetes - Dr. Majeed</a>
+    <a href='/Fungal_infection'>Fungal Infection - Doctor Sam</a>
+    <a href='/Diabetes'>Diabetes - Dr. Majeed</a>
 
-
-    <a href='/Fungal_infection' style="text-decoration: none; color: #333; font-size: 18px; font-family: Arial, sans-serif; padding: 8px 12px; background-color: #f0f0f0; border-radius: 5px;">Fungal infection - 'Doctor sam'</a>
-    <br>
-    <br>
-
-    <a href='/Diabetes' style="text-decoration: none; color: #333; font-size: 18px; font-family: Arial, sans-serif; padding: 8px 12px; background-color: #f0f0f0; border-radius: 5px;">Diabetes - 'Dr majeed'</a>
-    <br>
-    <br>
-
-    <a href='/Diabetes' style="text-decoration: none; color: #333; font-size: 18px; font-family: Arial, sans-serif; padding: 8px 12px; background-color: #f0f0f0; border-radius: 5px;">Diabetes - 'Dr majeed'</a>
-    <br>
-    <br>
-
-    <a href='/Diabetes' style="text-decoration: none; color: #333; font-size: 18px; font-family: Arial, sans-serif; padding: 8px 12px; background-color: #f0f0f0; border-radius: 5px;">Diabetes - 'Dr majeed'</a>
-    <br>
-    <br>
-
-    <a href='/Diabetes' style="text-decoration: none; color: #333; font-size: 18px; font-family: Arial, sans-serif; padding: 8px 12px; background-color: #f0f0f0; border-radius: 5px;">Diabetes - 'Dr majeed'</a>
-    <br>
-    <br>
-
-    <a href='/Diabetes' style="text-decoration: none; color: #333; font-size: 18px; font-family: Arial, sans-serif; padding: 8px 12px; background-color: #f0f0f0; border-radius: 5px;">Diabetes - 'Dr majeed'</a>
-    
 </body>
 </html>

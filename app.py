@@ -4,10 +4,12 @@ import numpy as np
 import tensorflow
 import mysql.connector
 from datetime import datetime
+import nltk
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+nltk.download("vader_lexicon")
 
 app = Flask(__name__)
 
-# mydb=mysql.connector.connect(host='localhost',user='root',passwd='Munshid_123',database='vertual_doctor')
 
 
 
@@ -101,7 +103,7 @@ def predict():
 
 
 
-    # Creating a list of user responses to the questions
+ 
     user_responses = [int(request.form[f'q{i}']) for i in range(1, 49)]
     print(user_responses)
     model=joblib.load('trained_model')
@@ -136,7 +138,7 @@ def Fungal_infection():
     result = mycursor.fetchone()
 
     if result:
-        name= result[0]  # Assuming age is the first (or only) column retrieved
+        name= result[0]  
     else:
         name ='man'
 
@@ -163,7 +165,7 @@ def Diabetes():
 
     if result:
         gender= result[0]
-        name=result[1]  # Assuming age is the first (or only) column retrieved
+        name=result[1]  
     else:
         gender="male"
         name='user'
@@ -193,7 +195,7 @@ def Diabetes_resutl():
     if result:
         Age= result[0]
         name=result[1]
-        gender=result[2]  # Assuming age is the first (or only) column retrieved
+        gender=result[2]  
     else:
         Age =24
         name='user'
@@ -230,11 +232,41 @@ def Diabetes_resutl():
 
 @app.route('/submit_review', methods=['POST'])
 def submit_review():
+
+    sia = SentimentIntensityAnalyzer()
+
+    def analyze_sentiment(text):
+        sentiment_scores = sia.polarity_scores(text)
+        if sentiment_scores["compound"] >= 0.05:
+            return "Positive"
+        elif sentiment_scores["compound"] <= -0.05:
+            return "Negative"
+        else:
+            return "Neutral"
     user_review = request.form['user-review']
+    sentiment = analyze_sentiment(user_review)
     
+    mydb = mysql.connector.connect(
+    host='localhost',
+    user='root',
+    passwd='Munshid_123',
+    database='vertual_doctor'
+    )
+    mycursor = mydb.cursor()
+
+    query_max_id = "SELECT MAX(id) FROM patient_details;"
+    mycursor.execute(query_max_id)
+    max_id = mycursor.fetchone()[0] 
+
+    query_update = f"UPDATE patient_details SET review = '{user_review}', emotion = '{sentiment}' WHERE id = {max_id};"
+    mycursor.execute(query_update)
+    mydb.commit()
+    mydb.close()
+
     
     return "Thank you for submitting your review!"
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 
