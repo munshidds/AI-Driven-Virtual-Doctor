@@ -106,19 +106,21 @@ def predict():
  
     user_responses = [int(request.form[f'q{i}']) for i in range(1, 49)]
     print(user_responses)
-    model=joblib.load('trained_model')
+    if sum(user_responses) >1:
+        model=joblib.load('trained_model')
 
-    final_prediction=model.predict([user_responses])
-    pred=np.argmax(final_prediction, axis=1)
+        final_prediction=model.predict([user_responses])
+        pred=np.argmax(final_prediction, axis=1)
 
-    encoder=joblib.load("encoder")
-    predicted=encoder.inverse_transform(pred)
-    print(f'result is {predicted}')
+        encoder=joblib.load("encoder")
+        predicted=encoder.inverse_transform(pred)
+        print(f'result is {predicted}')
 
 
 
-    return render_template('predict.html',user_responses=user_responses,Name=user_name,Age=user_age,Gender=user_gender,predicted=predicted,user_phone_nomber=user_phone_nomber)
-
+        return render_template('predict.html',user_responses=user_responses,Name=user_name,Age=user_age,Gender=user_gender,predicted=predicted,user_phone_nomber=user_phone_nomber)
+    else:
+        return "sorry,.... You have to respond to at least one question to help us understand your problem."
 
 @app.route('/Fungal_infection')
 def Fungal_infection():
@@ -191,44 +193,47 @@ def Diabetes_resutl():
     mycursor.execute(sql)
 
     result = mycursor.fetchone()
+    try:
+        if result:
+            Age= result[0]
+            name=result[1]
+            gender=result[2]  
+        else:
+            Age =24
+            name='user'
+            gender='male'
 
-    if result:
-        Age= result[0]
-        name=result[1]
-        gender=result[2]  
-    else:
-        Age =24
-        name='user'
-        gender='male'
-
-    mydb.close()
-    if gender=='male':
-        pregnancies= request.form["Pregnancies"]
-    else:
-        pregnancies=0
-        
-    Glucose = request.form["Glucose"]
-    BloodPressure = request.form["BloodPressure"]
-    SkinThickness= request.form["SkinThickness"]
-    Insulin = request.form["Insulin"]
-    BMI= request.form["BMI"]
-    DiabetesPedigreeFunction= request.form["DiabetesPedigreeFunction"]
-
-
-    input_data = [int(pregnancies), float(Glucose), int(BloodPressure), int(SkinThickness), int(Insulin), float(BMI), float(DiabetesPedigreeFunction), int(Age)]
-
-    model=joblib.load('diabetes_doctor.pkl')
-
-    final_prediction=model.predict([input_data])
-    print(final_prediction)
-    if final_prediction==[1]:
-        result = "Considering the information you've provided, there appears to be a higher likelihood of a diabetes concern"
-    else:
-        result="Considering the information you've provided, there appears to be a lower likelihood of a diabetes concern"
-
-    return render_template('diabetes_result.html',result=result,name=name)
+        mydb.close()
+        if gender=='male':
+            pregnancies= request.form["Pregnancies"]
+        else:
+            pregnancies=0
+            
+        Glucose = request.form["Glucose"]
+        BloodPressure = request.form["BloodPressure"]
+        SkinThickness= request.form["SkinThickness"]
+        Insulin = request.form["Insulin"]
+        BMI= request.form["BMI"]
+        DiabetesPedigreeFunction= request.form["DiabetesPedigreeFunction"]
 
 
+        input_data = [int(pregnancies), float(Glucose), int(BloodPressure), int(SkinThickness), int(Insulin), float(BMI), float(DiabetesPedigreeFunction), int(Age)]
+        if sum(input_data)-int(Age) >0:
+            model=joblib.load('diabetes_doctor.pkl')
+
+            final_prediction=model.predict([input_data])
+            print(final_prediction)
+            if final_prediction==[1]:
+                result = "Considering the information you've provided, there appears to be a higher likelihood of a diabetes concern"
+            else:
+                result="Considering the information you've provided, there appears to be a lower likelihood of a diabetes concern"
+
+            return render_template('diabetes_result.html',result=result,name=name)
+        else:
+            return "sorry,.... You have to respond to at least one question to help us understand your problem."
+    except Exception as e:
+        print("An error occurred:", e)
+        return "An error occurred while processing your request. Please try again later."
 
 @app.route('/submit_review', methods=['POST'])
 def submit_review():
