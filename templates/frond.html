@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Virtual Doctor Chat</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #8e9eab, #eef2f3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            max-width: 800px;
+            margin: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .content {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        form {
+            width: 45%;
+            text-align: left;
+        }
+
+        label {
+            color: #333;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="radio"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        p {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .doctor-image {
+            width: 45%;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Virtual Doctor Chat</h1>
+        <div class="content">
+            <form action="http://127.0.0.1:5000/predict" method="POST">
+                <!-- The form content with questions -->
+                <label for="user-name">Doctor: I'm Dr. John. I hope I can assist you today. Before that, could you please tell me your name?</label>
+                <input type="text" name="user-name" placeholder="Your Name" required>
+
+                <label for="gender">Doctor: What is your gender?</label> 
+                <input type="radio" name="gender" value="Male" required> Male
+                <input type="radio" name="gender" value="Female"> Female
+
+                <label for="user-age">Doctor: How old are you?</label>
+                <input type="number" name="user-age" placeholder="Your Age" required>
+
+                <label for="user-phone_number">Doctor: Your phone number?</label>
+                <input type="text" pattern="\d{10}" title="Please enter a 10-digit number" name="user-phone_number" placeholder="Your phone number (10 digits)" required>
+
+              
+                
+                <input type="submit" value="Next">
+            </form>
+
+            <img src="doctor_image.jpg" class="doctor-image" alt="Virtual Doctor Image">
+        </div>
+    </div>
+</body>
+</html>
