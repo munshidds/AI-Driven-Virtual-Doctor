@@ -90,8 +90,7 @@
     <div class="container">
         <h1>Welcome to the Virtual Doctor Chat</h1>
         <div class="content">
-            <form action="http://127.0.0.1:5000/predict" method="POST">
-                <!-- The form content with questions -->
+            <form action="http://127.0.0.1:5000/form" method="POST">
                 <label for="user-name">Doctor: I'm Dr. John. I hope I can assist you today. Before that, could you please tell me your name?</label>
                 <input type="text" name="user-name" placeholder="Your Name" required>
 
@@ -110,7 +109,8 @@
                 <input type="submit" value="Next">
             </form>
 
-            <img src="doctor_image.jpg" class="doctor-image" alt="Virtual Doctor Image">
+            <img src="{{ url_for('static', filename='doctor_image.jpg') }}"  class="doctor-image" alt="Virtual Doctor Image">
+
         </div>
     </div>
 </body>

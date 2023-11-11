@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: ##D4EFDF ; 
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #008080;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #fff; 
+        }
+
+        table, th, td {
+            border: 1px solid #AAB7B8;
+            text-align: left;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #85929E; 
+            color: white;
+        }
+
+        h3 {
+            color: #008080;
+            text-align: center;
+        }
+
+        h4 {
+            color: #008080; 
+            text-align: center;
+        }
+
+        a {
+            display: block;
+            width: fit-content;
+            margin: 0 auto 10px;
+            text-decoration: none;
+            color: #fff; /* White text color */
+            font-size: 16px;
+            padding: 8px 12px;
+            background-color: #82E0AA; /* 
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #cc0000; 
+        }
+    </style>
+</head>
+<body>
+    <h1>Registration Details</h1>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Age</th>
+            <th>User Phone Number</th>
+            <th>date</th>
+        </tr>
+        <tr>
+            <td>{{Name}}</td>
+            <td>{{Gender}}</td>
+            <td>{{Age}}</td>
+            <td>{{user_phone_nomber}}</td>
+            <td>{{date}}</td>
+        </tr>
+    </table>
+
+    <h3>Hello, {{Name}}! Based on your responses, the prediction for your condition is: {{predicted}}</h3>
+    <h4>"Please consult a {{predicted}} specialist for further evaluation of your condition."</h4>
+
+    <h4>"Here is a specialized doctor based on your condition  that may assist you further:"</h4>
+
+    <a href='/Diabetes'>Diabetes - Dr. Majeed</a>
+
+
+</body>
+</html>

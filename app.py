@@ -6,16 +6,13 @@ import mysql.connector
 from datetime import datetime
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
+from tensorflow.keras.preprocessing.image import load_img
 nltk.download("vader_lexicon")
 
 app = Flask(__name__)
 
 
-
-
-@app.route('/')
-def chat():
-    questions = [
+questions = [
         "1-Do you experience itching?",
         "2-Do you have a skin rash?",
         "3-Are there nodal skin eruptions on your body?",
@@ -66,20 +63,24 @@ def chat():
         "48-Do you have swollen lymph nodes?",
         ]
 
-    return render_template('chat.html', questions=questions)
+
+@app.route('/')
+def chat():
 
 
+    return render_template('frond.html')
 
-@app.route('/predict', methods=['POST'])
-def predict():
+@app.route('/form',methods=['POST'])
+def form():
 
     user_name = request.form['user-name']
     user_gender = request.form['gender']
     user_age = int(request.form['user-age'])
     user_phone_nomber = int(request.form['user-phone_number'])
     current_date_formatted = datetime.now().strftime('%Y-%m-%d')
+    print(user_name,user_gender,user_age,user_phone_nomber,current_date_formatted)
+    
 
- 
     mydb = mysql.connector.connect(
         host='localhost',
         user='root',
@@ -102,10 +103,21 @@ def predict():
     mydb.close()
 
 
+    return render_template('general_2.html',questions=questions)
+
+
+
+
+
+@app.route('/predict', methods=['POST'])
+def predict():
 
  
     user_responses = [int(request.form[f'q{i}']) for i in range(1, 49)]
     print(user_responses)
+
+
+
     if sum(user_responses) >1:
         model=joblib.load('trained_model')
 
@@ -117,10 +129,107 @@ def predict():
         print(f'result is {predicted}')
 
 
+        if predicted[0]== 'Diabetes ':
 
-        return render_template('predict.html',user_responses=user_responses,Name=user_name,Age=user_age,Gender=user_gender,predicted=predicted,user_phone_nomber=user_phone_nomber)
+            mydb = mysql.connector.connect(
+            host='localhost',
+            user='root',
+            passwd='Munshid_123',
+            database='vertual_doctor'
+        )
+            mycursor = mydb.cursor()
+
+            sql = "SELECT name,age,gender,phone_nomber,date FROM patient_details ORDER BY id DESC LIMIT 1"
+
+            mycursor.execute(sql)
+
+            result = mycursor.fetchone()
+
+            if result:
+                name= result[0]
+                age=result[1]
+                gender=result[2]
+                phone_nomber=result[3]
+                date=result[4]  
+            else:
+                name =''
+                age=''
+                gender=''
+                phone_nomber=''
+                date=''
+
+            mydb.close()
+
+
+
+            return render_template('predict_diabetes.html',user_responses=user_responses,Name=name,Age=age,Gender=gender,predicted=predicted,user_phone_nomber=phone_nomber,date=date)
+            
+            
+        elif predicted[0] == 'Pneumonia ':
+
+            mydb = mysql.connector.connect(
+            host='localhost',
+            user='root',
+            passwd='Munshid_123',
+            database='vertual_doctor'
+        )
+            mycursor = mydb.cursor()
+
+            sql = "SELECT name,age,gender,phone_nomber FROM patient_details ORDER BY id DESC LIMIT 1"
+
+            mycursor.execute(sql)
+
+            result = mycursor.fetchone()
+
+            if result:
+                name= result[0]
+                age=result[1]
+                gender=result[2]
+                phone_nomber=result[3]  
+            else:
+                name =''
+                age=''
+                gender=''
+                phone_nomber=''
+
+            mydb.close()
+
+
+
+            return render_template('if_pneumonia.html',user_responses=user_responses,Name=name,Age=age,Gender=gender,predicted=predicted,user_phone_nomber=phone_nomber)
+        else:
+            mydb = mysql.connector.connect(
+            host='localhost',
+            user='root',
+            passwd='Munshid_123',
+            database='vertual_doctor'
+        )
+            mycursor = mydb.cursor()
+
+            sql = "SELECT name,age,gender,phone_nomber FROM patient_details ORDER BY id DESC LIMIT 1"
+
+            mycursor.execute(sql)
+
+            result = mycursor.fetchone()
+
+            if result:
+                name= result[0]
+                age=result[1]
+                gender=result[2]
+                phone_nomber=result[3]  
+            else:
+                name =''
+                age=''
+                gender=''
+                phone_nomber=''
+
+            mydb.close()
+
+            return render_template('common_prediction.html',user_responses=user_responses,Name=name,Age=age,Gender=gender,predicted=predicted,user_phone_nomber=phone_nomber)
     else:
         return "sorry,.... You have to respond to at least one question to help us understand your problem."
+
+    
 
 @app.route('/Fungal_infection')
 def Fungal_infection():
@@ -270,6 +379,39 @@ def submit_review():
 
     
     return "Thank you for submitting your review!"
+
+@app.route('/predict_pneumonia')
+def pneumonia():
+    return render_template('pneumonia.html')
+
+
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    if 'file' not in request.files:
+        return 'No file part'
+
+    file = request.files['file']
+
+    if file.filename == '':
+        return 'No selected file'
+    
+    file_path = 'temp/' + file.filename
+    file.save(file_path)
+
+
+    img = load_img(file_path, target_size=(224, 224))
+    img = np.asarray(img)
+    img = np.expand_dims(img, axis=0)
+    from keras.models import load_model
+    saved_model = load_model("vgg16_model.h5")
+    output = saved_model.predict(img)
+    if output[0][0] > output[0][1]:
+        predicted="Considering the chest_xray you've provided, there appears to be a lower likelihood of a PNEUMONIA concern"
+    else:
+        predicted="Considering the chest_xray you've provided, there appears to be a higher likelihood of a PNEUMONIA concern"
+    return render_template('predict_pneumonia.html',result=predicted)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

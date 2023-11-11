@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Virtual Doctor</title>
+    <style>
+        body {
+            margin: 0;
+
+            padding: 600px;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .chat-container {
+            background-image: url('dp.avif'); /* Place the doctor-patient image */
+            background-size: cover;
+            background-position: center;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            width: 400px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .caption_ {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+        }
+
+        .button {
+            display: block;
+            width: 100%;
+            padding: 10px 0;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #4caf50;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            
+        }
+
+        .chat-container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 400px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .caption {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .caption h3 {
+            font-size: 24px;
+            color: #333;
+            margin: 0;
+        }
+
+        .caption p {
+            font-size: 16px;
+            color: #666;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="caption">
+        <h3>Hello, I'm Dr. Sam, your General Doctor</h3>
+        <p>I'm here to help! Please answer a few questions to help diagnose your condition</p>
+    </div>
+
+    <div class="chat-container">
+        <div class="caption_">
+            <h4>Consult with Our General Doctor</h4>
+        </div>
+
+        <form action="http://127.0.0.1:5000/predict" method="POST">
+
+
+                {% for i in range(1, 49) %}
+            <div class="message">    
+        <label for="q{{ i }}"  style="color: #333; display: block; margin-bottom: 10px;" >Dr: {{ questions[i-1] }}</label>
+        <input type="radio" name="q{{ i }}" value="1" > Yes
+        <input type="radio" name="q{{ i }}" value="0" checked  style="margin-right: 5px; display: none;">
+    </div>
+        {% endfor %}
+
+        <input type="submit" value="Predict" class="button" >
+    </form>
+            </div>
+        </form>
+    </div>
+    
+</body>
+</html>
