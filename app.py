@@ -165,7 +165,7 @@ def predict():
             return render_template('predict_diabetes.html',user_responses=user_responses,Name=name,Age=age,Gender=gender,predicted=predicted,user_phone_nomber=phone_nomber,date=date)
             
             
-        elif predicted[0] == 'Pneumonia ':
+        elif predicted[0] == 'Pneumonia':
 
             mydb = mysql.connector.connect(
             host='localhost',
@@ -405,11 +405,35 @@ def upload_file():
     from keras.models import load_model
     saved_model = load_model("vgg16_model.h5")
     output = saved_model.predict(img)
+
+    mydb = mysql.connector.connect(
+        host='localhost',
+        user='root',
+        passwd='Munshid_123',
+        database='vertual_doctor'
+    )
+    mycursor = mydb.cursor()
+
+    sql = "SELECT name FROM patient_details ORDER BY id DESC LIMIT 1"
+
+    mycursor.execute(sql)
+
+    result = mycursor.fetchone()
+    try:
+        if result:
+            name=result[0] 
+        else:
+            name='user'
+        mydb.close()
+    except Exception as e:
+        print("An error occurred:", e)
+
+
     if output[0][0] > output[0][1]:
         predicted="Considering the chest_xray you've provided, there appears to be a lower likelihood of a PNEUMONIA concern"
     else:
         predicted="Considering the chest_xray you've provided, there appears to be a higher likelihood of a PNEUMONIA concern"
-    return render_template('predict_pneumonia.html',result=predicted)
+    return render_template('predict_pneumonia.html',result=predicted,name=name)
 
 
 
