@@ -175,7 +175,7 @@ def predict():
         )
             mycursor = mydb.cursor()
 
-            sql = "SELECT name,age,gender,phone_nomber FROM patient_details ORDER BY id DESC LIMIT 1"
+            sql = "SELECT name,age,gender,phone_nomber,date FROM patient_details ORDER BY id DESC LIMIT 1"
 
             mycursor.execute(sql)
 
@@ -185,18 +185,20 @@ def predict():
                 name= result[0]
                 age=result[1]
                 gender=result[2]
-                phone_nomber=result[3]  
+                phone_nomber=result[3]
+                date= result[4]
             else:
                 name =''
                 age=''
                 gender=''
                 phone_nomber=''
+                date=''
 
             mydb.close()
 
 
 
-            return render_template('if_pneumonia.html',user_responses=user_responses,Name=name,Age=age,Gender=gender,predicted=predicted,user_phone_nomber=phone_nomber)
+            return render_template('if_pneumonia.html',user_responses=user_responses,Name=name,Age=age,Gender=gender,predicted=predicted,user_phone_nomber=phone_nomber,date=date)
         else:
             mydb = mysql.connector.connect(
             host='localhost',
@@ -206,7 +208,7 @@ def predict():
         )
             mycursor = mydb.cursor()
 
-            sql = "SELECT name,age,gender,phone_nomber FROM patient_details ORDER BY id DESC LIMIT 1"
+            sql = "SELECT name,age,gender,phone_nomber,date FROM patient_details ORDER BY id DESC LIMIT 1"
 
             mycursor.execute(sql)
 
@@ -216,16 +218,18 @@ def predict():
                 name= result[0]
                 age=result[1]
                 gender=result[2]
-                phone_nomber=result[3]  
+                phone_nomber=result[3]
+                date=result[4]  
             else:
                 name =''
                 age=''
                 gender=''
                 phone_nomber=''
+                date=''
 
             mydb.close()
 
-            return render_template('common_prediction.html',user_responses=user_responses,Name=name,Age=age,Gender=gender,predicted=predicted,user_phone_nomber=phone_nomber)
+            return render_template('common_prediction.html',user_responses=user_responses,Name=name,Age=age,Gender=gender,predicted=predicted,user_phone_nomber=phone_nomber,date=date)
     else:
         return "sorry,.... You have to respond to at least one question to help us understand your problem."
 

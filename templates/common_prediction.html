@@ -7,7 +7,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(to bottom, #FDFEFE  , #F2F3F4  );
+            background-image: url('{{ url_for("static", filename="general prediction.jpg") }}');
+            background-size: cover;
             margin: 0;
             padding: 170px;
         }
@@ -31,7 +32,7 @@
         }
 
         th {
-            background-color: #85929E; 
+            background-color: #566573 ; 
             color: white;
         }
 
@@ -61,9 +62,12 @@
         a:hover {
             background-color: #cc0000; 
         }
+
     </style>
 </head>
+
 <body>
+ 
     <h1>Registration Details</h1>
 
     <table>
@@ -72,12 +76,14 @@
             <th>Gender</th>
             <th>Age</th>
             <th>User Phone Number</th>
+            <th>date</th>
         </tr>
         <tr>
             <td>{{Name}}</td>
             <td>{{Gender}}</td>
             <td>{{Age}}</td>
             <td>{{user_phone_nomber}}</td>
+            <td>{{date}}</td>
         </tr>
     </table>
 
@@ -89,7 +95,5 @@
     <a href='/Diabetes'>Diabetes - Dr. Majeed</a>
     <a href='/Fungal_infection'>Fungal_infection- Dr. jhon</a>
     <a href='/predict_pneumonia'>Pneumonia - Dr. jhon</a>
-
-
 </body>
 </html>

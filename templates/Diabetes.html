@@ -7,13 +7,17 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+            background-image: url('{{ url_for("static", filename="diabetes doctor.webp") }}');
+            background-size: cover;
             margin: 0;
-            padding: 20px;
-        }
-        h1 {
-            color: #333;
-        }
+            }
+        h3 {
+           
+                text-align: center;}
+        h4 {
+                    color: #424949;
+                    text-align: center;
+            }
         form {
             background-color: #fff;
             padding: 20px;
@@ -49,7 +53,10 @@
     </style>
 </head>
 <body>
-    <h1>Hello, {{name}}! I'm Dr. Majeed.</h1>
+    <h3>Hello, {{name}}! I'm Dr. Majeed.</h3>
+    <h4>To ensure a comprehensive understanding of your health, I'd like to ask you a few questions.</h4> 
+        <h4>Your responses will assist in providing a more accurate diagnosis.</h4>
+
     <form action='http://127.0.0.1:5000/Diabetes_resutl' method="POST">
         {% if gender == "Female" %}
         <label for="Pregnancies">Have you ever been pregnant? If yes, how many times?</label>
