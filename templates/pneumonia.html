@@ -7,14 +7,10 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-image: url('{{ url_for("static", filename="x_ray_upload.webp") }}');
+            background-size: cover;
             margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column; /* Center content vertically */
-            height: 100vh;
+            padding: 170px;
         }
 
         h1 {
@@ -69,7 +65,7 @@
     <!-- Introduction text -->
     <p class="intro-text">
         <h2>Let's confirm your diagnosis</h2>
-        Dear Patient, for a comprehensive analysis and better understanding of your health, kindly upload your X-ray images.
+        Dear Patient, for a comprehensive analysis and better- <br> understanding of your health, kindly upload your X-ray images.
     </p>
 
     <!-- File upload form -->

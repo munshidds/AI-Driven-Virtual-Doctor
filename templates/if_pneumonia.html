@@ -7,13 +7,24 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: ##D4EFDF ; 
+            background-image: url('{{ url_for("static", filename="general prediction.jpg") }}');
+            background-size: cover;
             margin: 0;
-            padding: 20px;
+            padding: 170px;
+        }
+        
+        h1 {
+            color: #424949;
+            text-align: center;
         }
 
-        h1 {
-            color: #008080;
+        h3 {
+            color:#424949;
+            text-align: center;
+        }
+
+        h4 {
+            color:#424949 ; 
             text-align: center;
         }
 
@@ -35,15 +46,7 @@
             color: white;
         }
 
-        h3 {
-            color: #008080;
-            text-align: center;
-        }
-
-        h4 {
-            color: #008080; 
-            text-align: center;
-        }
+ 
 
         a {
             display: block;

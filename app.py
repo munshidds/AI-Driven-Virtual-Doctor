@@ -67,8 +67,8 @@ questions = [
 @app.route('/')
 def chat():
 
-
     return render_template('frond.html')
+
 
 @app.route('/form',methods=['POST'])
 def form():
@@ -80,7 +80,6 @@ def form():
     current_date_formatted = datetime.now().strftime('%Y-%m-%d')
     print(user_name,user_gender,user_age,user_phone_nomber,current_date_formatted)
     
-
     mydb = mysql.connector.connect(
         host='localhost',
         user='root',
@@ -88,37 +87,28 @@ def form():
         database='vertual_doctor'
     )
 
-
     if mydb:
         print("Connected to the database!")
     mycursor = mydb.cursor()
 
-
     data = [ (user_name,user_age,user_phone_nomber,current_date_formatted,user_gender) ]
-
     sql = "INSERT INTO patient_details (name, age, phone_nomber,date,gender) VALUES (%s, %s, %s,%s,%s)"
     mycursor.executemany(sql, data)
     mydb.commit()
     print(mycursor.rowcount, "record(s) inserted.")
     mydb.close()
 
-
     return render_template('general_2.html',questions=questions)
-
-
 
 
 
 @app.route('/predict', methods=['POST'])
 def predict():
 
- 
     user_responses = [int(request.form[f'q{i}']) for i in range(1, 49)]
     print(user_responses)
 
-
-
-    if sum(user_responses) >1:
+    if sum(user_responses) >=2:
         model=joblib.load('trained_model')
 
         final_prediction=model.predict([user_responses])
@@ -160,8 +150,6 @@ def predict():
 
             mydb.close()
 
-
-
             return render_template('predict_diabetes.html',user_responses=user_responses,Name=name,Age=age,Gender=gender,predicted=predicted,user_phone_nomber=phone_nomber,date=date)
             
             
@@ -178,7 +166,6 @@ def predict():
             sql = "SELECT name,age,gender,phone_nomber,date FROM patient_details ORDER BY id DESC LIMIT 1"
 
             mycursor.execute(sql)
-
             result = mycursor.fetchone()
 
             if result:
@@ -195,8 +182,6 @@ def predict():
                 date=''
 
             mydb.close()
-
-
 
             return render_template('if_pneumonia.html',user_responses=user_responses,Name=name,Age=age,Gender=gender,predicted=predicted,user_phone_nomber=phone_nomber,date=date)
         else:
@@ -231,7 +216,7 @@ def predict():
 
             return render_template('common_prediction.html',user_responses=user_responses,Name=name,Age=age,Gender=gender,predicted=predicted,user_phone_nomber=phone_nomber,date=date)
     else:
-        return "sorry,.... You have to respond to at least one question to help us understand your problem."
+        return "sorry,.... You have to respond to at least two question to help us understand your problem."
 
     
 
